@@ -9,11 +9,11 @@ jobs:
 
       - run: echo "Generating a report for lab01"
 
-      - run: pip install nbconvert pint matplotlib scipy
+      - run: pip install nbconvert pint matplotlib scipy ipykernel
 
       - run: sudo apt-get install pandoc texlive-xetex inkscape
 
-      - run: python -m nbconvert --to pdf lab01/pint_and_boiling_point.ipynb
+      - run: python -m nbconvert --to pdf --execute lab01/pint_and_boiling_point.ipynb
 
       - name: Upload generated PDF
         uses: actions/upload-artifact@v4
