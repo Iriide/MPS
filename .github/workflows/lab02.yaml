@@ -9,9 +9,9 @@ jobs:
 
       - run: echo "Generating a report for lab01"
 
-      - run: pip install nbconvert
+      - run: pip install nbconvert pint matplotlib scipy
 
-      - run: sudo apt-get install pandoc texlive-xetex
+      - run: sudo apt-get install pandoc texlive-xetex inkscape
 
       - run: python -m nbconvert --to pdf lab01/pint_and_boiling_point.ipynb
 
