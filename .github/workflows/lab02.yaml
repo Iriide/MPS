@@ -5,11 +5,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-      - uses: actions/checkout@v4
-      - run: echo "Generating a report for a lab02"
+        uses: actions/checkout@v4
+
+      - run: echo "Generating a report for lab01"
+
       - run: pip install nbconvert
+
       - run: sudo apt-get install pandoc texlive-xetex
+
       - run: python -m nbconvert --to pdf lab01/pint_and_boiling_point.ipynb
-      - uses: actions/upload-artifact@v2
+
+      - name: Upload generated PDF
+        uses: actions/upload-artifact@v4
         with:
-          name: lab01/lab01-report
+          name: lab01-report
+          path: lab01/pint_and_boiling_point.pdf
