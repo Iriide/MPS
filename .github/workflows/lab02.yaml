@@ -1,7 +1,12 @@
 name: lab01
 on: push
 jobs:
-  test:
+  generate-report:
     runs-on: ubuntu-latest
-    steps:  
-    - run: echo "Hello world"
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "Generating a report for a lab02"
+      - run: pip install nbconvert
+      - run: sudo apt-get install pandoc texlive-xetex
+      - run: python -m nbconvert --to pdf lab01/pint_and_boiling_point.ipynb
