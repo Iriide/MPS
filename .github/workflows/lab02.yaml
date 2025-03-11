@@ -1,4 +1,4 @@
-name: chuj
+name: lab01
 on: push
 jobs:
   test:
