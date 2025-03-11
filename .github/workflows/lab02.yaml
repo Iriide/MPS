@@ -1,6 +1,5 @@
 name: lab01
 on: push
-
 jobs:
   generate-report:
     runs-on: ubuntu-latest
@@ -8,39 +7,15 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-          cache: "pip"
+      - run: echo "Generating a report for lab01"
 
-      - name: Cache APT Packages
-        uses: actions/cache@v3
-        with:
-          path: /var/cache/apt/archives
-          key: ${{ runner.os }}-apt-cache
-          restore-keys: |
-            ${{ runner.os }}-apt-
+      - run: pip install nbconvert pint matplotlib scipy ipykernel open_atmos_jupyter_utils
 
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            pandoc texlive-xetex inkscape
+      - run: sudo apt-get install pandoc texlive-xetex inkscape
 
-      - name: Create Virtual Environment & Install Dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install nbconvert pint matplotlib scipy ipykernel
+      - run: python -m nbconvert --to pdf --execute lab01/pint_and_boiling_point.ipynb
 
-      - name: Execute and Convert Notebook to PDF
-        run: |
-          source venv/bin/activate
-          python -m nbconvert --to pdf --execute lab01/pint_and_boiling_point.ipynb
-
-      - name: Upload Generated PDF
+      - name: Upload generated PDF
         uses: actions/upload-artifact@v4
         with:
           name: lab01-report
