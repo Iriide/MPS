@@ -8,6 +8,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: pip install -r requirements.txt
       - run: pip install nbconvert ipykernel
+      - run: sudo apt-get update
       - run: sudo apt-get install pandoc inkscape texlive-xetex texlive-fonts-recommended
       - run: |
           for file in $(find lab* -type f -name "*.ipynb"); do
